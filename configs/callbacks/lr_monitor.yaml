@@ -1,0 +1,4 @@
+# https://lightning.ai/docs/pytorch/latest/api/lightning.pytorch.callbacks.RichProgressBar.html
+
+lr_monitor:
+  _target_: lightning.pytorch.callbacks.LearningRateMonitor

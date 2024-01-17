@@ -1,0 +1,58 @@
+_target_: src.models.pesto.PESTO
+
+encoder:
+  _target_: src.models.networks.resnet1d.Resnet1d
+  n_chan_input: ${len:${data.harmonics}}
+  n_chan_layers:
+    - 40
+    - 30
+    - 30
+    - 10
+    - 3
+  n_prefilt_layers: 2
+  prefilt_kernel_size: 15
+  residual: true
+  n_bins_in: ${eval:88 * ${data.bins_per_semitone}}
+  output_dim: ${eval:128 * ${data.bins_per_semitone}}
+
+equiv_loss_fn:
+  _target_: src.losses.equivariance.PowerSeries
+  value: 1.019440644  # 2 ** (1/36)
+  power_min: ${eval:${model.equiv_loss_fn.power_max} - ${model.encoder.output_dim}}
+  power_max: 1
+  tau: 0.122462048  # 2 ** (1/6) - 1
+
+inv_loss_fn:
+  _target_: src.losses.entropy.CrossEntropyLoss
+  symmetric: true
+  detach_targets: true
+
+sce_loss_fn:
+  _target_: src.losses.entropy.ShiftCrossEntropy
+  pad_length: ${model.pitch_shift_kwargs.max_steps}
+  criterion: ${model.inv_loss_fn}
+
+optimizer:
+  _target_: torch.optim.Adam
+  _partial_: true
+  lr: 1e-4
+  weight_decay: 0
+
+scheduler:
+  _target_: torch.optim.lr_scheduler.CosineAnnealingLR
+  _partial_: true
+  T_max: ${trainer.max_epochs}
+
+pitch_shift_kwargs:
+  min_steps: ${eval:-${model.pitch_shift_kwargs.max_steps}}
+  max_steps: ${eval:${data.bins_per_semitone} * 11 // 2}
+
+transforms:
+  - _target_: src.data.transforms.BatchRandomNoise
+    min_snr: 0.1
+    max_snr: 2.
+    p: 0.7
+  - _target_: src.data.transforms.BatchRandomGain
+    min_gain: 0.5
+    max_gain: 1.5
+    p: 0.7

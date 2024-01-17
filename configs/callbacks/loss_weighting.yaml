@@ -1,0 +1,7 @@
+loss_weighting:
+  _target_: src.callbacks.loss_weighting.GradientsLossWeighting
+  weights:
+    invariance: 0.
+    shift_entropy: 1.
+    equivariance: 0.
+  ema_rate: 0.999

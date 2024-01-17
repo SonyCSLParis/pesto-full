@@ -1,0 +1,3 @@
+mir_eval:
+  _target_: src.callbacks.mir_eval.MIREvalCallback
+  cdf_resolution: 10

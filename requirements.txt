@@ -1,0 +1,17 @@
+# pytorch
+torch>=2.1.2
+torchaudio>=2.1.2
+
+# lightning
+lightning>=2.1.3
+
+# hydra
+hydra-core>=1.3.2
+hydra-colorlog
+
+# nnAudio
+nnAudio>=0.3.2
+
+# utils
+rich>=13.7.0
+rootutils>=1.0.7

@@ -1,0 +1,9 @@
+.idea
+cache
+data/
+logs
+wandb
+
+!src/data
+
+**/__pycache__
