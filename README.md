@@ -182,7 +182,3 @@ If you want to use this work, please cite:
     doi={10.1109/TASLP.2022.3200547}}
 ```
 
-
-### Pretrained models
-
-- Train good models, evaluate them and release them
