@@ -182,32 +182,3 @@ If you want to use this work, please cite:
     doi={10.1109/TASLP.2022.3200547}}
 ```
 
-
-## TODO
-
-### Research
-
-- Implement confidence score
-- Handle continuous changes in time
-- Handle velocity
-- Smaller model
-- train on MUSDB to make it robust to background music
-- Optimal Transport
-- circular distributions to avoid shitty initialization
-
-
-### Implementation
-
-- Viterbi smoothing
-
-
-### Refactoring
-
-- simplify `datamodules`
-- split `augmentations/cqt` in two files + implement data augmentations directly in this repo
-- general evaluation loop: use same codebase for evaluating all baselines
-
-
-### Pretrained models
-
-- Train good models, evaluate them and release them
