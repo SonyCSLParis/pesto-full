@@ -1,0 +1,30 @@
+_target_: src.data.audio_datamodule.AudioDataModule
+audio_files: ???
+
+# HCQT-related args
+harmonics:
+  - 1
+hop_duration: 10.
+fmin: 27.5  # A0
+fmax: null
+bins_per_semitone: 3
+n_bins: ${eval:99 * ${data.bins_per_semitone} - 1}
+center_bins: true
+
+# data-loading related args
+batch_size: 256
+num_workers: 8
+pin_memory: true
+
+# post CQT transforms
+transforms:
+  - _target_: src.data.transforms.ToLogMagnitude
+
+# misc options
+cache_dir: ${paths.root_dir}/cache
+filter_unvoiced: false
+mmap_mode: null
+
+# K-fold cross-validation
+fold: null
+n_folds: 5

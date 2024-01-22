@@ -1,0 +1,6 @@
+defaults:
+  - default
+
+audio_files: ${paths.data_dir}/mir-1k.csv
+annot_files: ${paths.data_dir}/mir-1k_annot.csv
+hop_duration: 20.

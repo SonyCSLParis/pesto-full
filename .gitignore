@@ -4,6 +4,7 @@ data/
 logs
 wandb
 
+!configs/data
 !src/data
 
 **/__pycache__
